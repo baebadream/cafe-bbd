@@ -94,6 +94,7 @@ body::before {
   padding: 8px 4px 20px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 22px;
+  position: relative;
 }
 
 .brand {
@@ -108,6 +109,10 @@ body::before {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.nav-links a {
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nav-links a {
@@ -439,10 +444,15 @@ footer .contact-line strong {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: white;
   border-radius: 999px;
-  width: 42px;
-  height: 42px;
-  font-size: 1.1rem;
+  width: 46px;
+  height: 46px;
+  font-size: 1.15rem;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 16px rgba(123, 79, 51, 0.2);
 }
 
 .hero-visual {
@@ -513,6 +523,7 @@ footer .contact-line strong {
   .site-header {
     justify-content: space-between;
     align-items: center;
+    padding: 6px 2px 14px;
   }
 
   .content-card,
@@ -535,22 +546,75 @@ footer .contact-line strong {
 
   .nav-links {
     display: none;
-    width: 100%;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    z-index: 20;
     flex-direction: column;
     align-items: stretch;
-    margin-top: 10px;
+    padding: 10px;
+    background: rgba(255, 251, 246, 0.98);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 16px 36px rgba(72, 45, 25, 0.16);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
   }
 
   .nav-links.open {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .nav-links a {
     text-align: center;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(123, 79, 51, 0.04);
+    font-weight: 600;
+    transform: translateY(4px);
+    opacity: 0.95;
+  }
+
+  .nav-links.open a {
+    animation: menuLinkFade 0.2s ease forwards;
+  }
+
+  .nav-links.open a:nth-child(2) { animation-delay: 0.04s; }
+  .nav-links.open a:nth-child(3) { animation-delay: 0.08s; }
+  .nav-links.open a:nth-child(4) { animation-delay: 0.12s; }
+  .nav-links.open a:nth-child(5) { animation-delay: 0.16s; }
+  .nav-links.open a:nth-child(6) { animation-delay: 0.20s; }
+
+  .nav-links a + a {
+    margin-top: 6px;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
   }
 
   .card-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@keyframes menuLinkFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
